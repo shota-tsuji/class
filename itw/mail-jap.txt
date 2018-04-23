@@ -1,0 +1,42 @@
+Subject: Mail for Taking "Introductory Technical Writing" class
+Neil Millar先生へ
+Dear Neil Millar
+
+I'm Shota Tsuji, one student of Computer Science subject, Graduate School of System and Infomation Engineering.
+My name is Shota Tsuji and I am Graduate School of System and Infomation Engineering, Tsukuba University.
+
+私は，"Introductory Technical Writing"の授業を受けることを希望するため，メールをしました．
+I am writing to take "Introductory Technical Writing" class.
+
+私のTOEICのスコアは545点です．
+My TOEIC score is 545 points.
+
+私は，ハイパフォーマンスコンピューティングという分野で，線形代数の計算を高速にする研究をする予定です．
+GPUというコンピュータを用いた数値実験をします．
+これにより，シミュレーションを高速に実行したりすることができます．
+I plan to research makeing calculating linear algebra more speedly in
+the field of High-Performance-Computing(HPC). area :fixme
+
+In my reserch, I do programming and numerical experiment by using General-purpose computing on graphics processing units(GPGPU).
+By the benefit of this reserch, we can execute numerical simulation more faster.
+
+英語は得意ではありませんが，好きな科目です．
+英語でコミュニケーションをとることが好きです．
+However I prefer English comunication, I'm not good at English,  
+私は博士前期で行った研究を英語で論文にしたいため，この講義を受けます．
+よろしくお願いします．
+I take this class for writing my reserch thesis in English.
+
+
+ありがとうございます．
+辻祥太より
+Sincerely,
+Shota Tsuji
+(Neil Millar)
+
+************************************
+Shota Tsuji
+Computer Science major, Graduate School of System and Infomation Engineering
+Tsukuba university
+mail: s1820669@s.tsukuba.ac.jp
+************************************
