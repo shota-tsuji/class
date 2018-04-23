@@ -1,0 +1,5 @@
+# ignore csv and image file(png) and pdf file.
+*.csv
+*.ics
+*.png
+*.pdf
