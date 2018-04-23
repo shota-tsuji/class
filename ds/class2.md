@@ -80,3 +80,6 @@
 	- total system bandwidthは理論値？
 ## Performance(cont'd)
 - レイテンシーの例
+
+# Circuit 
+- POTSというの使っている
