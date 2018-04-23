@@ -31,3 +31,52 @@
 - Napsterを使うことでisoイメージのダウンロードを、いままでのサーバ&クライアントの帯域だけでなく、クライアント&クライアントの帯域も使うようにできた。
 # Placement
 - ユーザから見たらひとつの強力なサーバに見えるが、実際にはたくさんのPCを組み合わせ、その間をやりとりするようにすれば、パフォーマンス上がる。
+
+# Layering
+- 各レイヤーのインターフェースが同じであれば、入れ替えができる
+- 各レイヤーをそれぞれで開発できる
+
+# Three-tier architecture
+- スケーラビリティを上げるために、3つの機能(presentation logic, application logic, data logic)を、それぞれ異なるマシンに担当させる。
+- Cons
+	- レイテンシーが大きい（Web上での、お客さん逃げちゃう3秒ルールへの影響あり）
+
+
+# Architectural patterns
+- Brokerageはお手紙みたいに、宛先指定すれば届けておいてくれる？
+- Reflectionはプログラムが動的に自身？を書き換える。
+
+# Limitations of middleware
+- 問題が起こったら、結局下のレイヤーが大事になってくる？
+- harmfulはここでは、オーバーヘッドになって遅くなるという意味
+
+# 
+- 非同期分散
+	- メッセージがいつまでに届くかを前提としておかないシステム
+
+# Event ordering
+- 全体のとけいを持たないかわりに、因果関係を時計として用いる。
+
+# Failure model
+- fail-stopは、一部が壊れたら全部が止まる。
+- それ以外は、一部だけがうまく行かない例。
+- crashより下は、プロセスは生きているが、放っておくと整合がとれなくなってくるもの。
+- omissionは通信路で起きるエラー
+- send-omissionとreceive-omissionも含めて、メッセージがうまく届かないエラー。
+- arbitraryはいちばんやっかいで、ばらばらなメッセージが送られてくる。
+
+## Threats
+- 偽証とかデータ改ざんとか
+- 対抗策のってる
+
+# 分散システム特論3回目
+## Terminology
+- Communication subsystemには、ケーブルとかも含まれる。
+
+## Performance
+- transmission time
+	- メッセージ長/データ転送レート
+	- data ransfer rateは実際に送信されるデータ量
+	- total system bandwidthは理論値？
+## Performance(cont'd)
+- レイテンシーの例
