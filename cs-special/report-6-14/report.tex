@@ -1,0 +1,105 @@
+\documentclass[a4paper,11pt]{jsarticle}
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvips]{graphicx}
+
+%テキストの表示領域の調節
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-40truemm}
+\setlength{\textheight}{\paperheight}
+\addtolength{\textheight}{-45truemm}
+
+%余白の調節
+\setlength{\topmargin}{-10.4truemm}
+\setlength{\evensidemargin}{-5.4truemm}
+\setlength{\oddsidemargin}{-5.4truemm}
+\setlength{\headheight}{17pt}
+\setlength{\headsep}{10mm}
+\addtolength{\headsep}{-17pt}
+\setlength{\footskip}{5mm}
+
+\title{コンピュータサイエンス特別講義XI}
+\author{学籍番号 : 201820669\\氏名:辻祥太}
+
+\begin{document}
+\maketitle
+
+\newpage
+\section{Question1:最適化を行う手順と対象（階層）}
+最適化は，以下の5つの手順で行われる．
+これは計算においてホットスポットとなっている部分を特定し，そこから最適化をすすめることで，効率的な最適化を行うためである．
+\begin{enumerate}
+	\item パフォーマンス・データの収集
+	\item 解析・問題の認識
+	\item その解決
+	\item 拡張の実装
+	\item 結果のテスト
+\end{enumerate}
+
+最適化を行う対象としては，以下の3つが挙げられる．
+最適化を行う際，上から順に改善していくことで効率良く高速化が図られる．
+最初の最適化の対象はシステムである．システムリソースの利用方法の改善を図る．おもにネットワークに関する問題，ディスクパフォーマンス，メモリ使用量が挙げられる．
+次の対象はアプリケーションである．
+この階層ではおもなチューニング戦略として，スレッドモデルの向上と演算の効率性の向上の2つを行う．
+マルチスレッドを用いたチューニングでは，OpenMPやハイパー・スレッディング・テクノロジーなどを用いて並列を行うことで高速化を図る．
+演算効率の向上によるチューニングでは，SIMD命令を使用したりキャッシュの空間的局所性・時間的局所性を考慮した計算方法にすることで高速化を図る．
+\begin{itemize}
+	\item システムレベル
+	\item アプリケーション・レベル
+	\item マイクロアーキテクチャ・レベル
+\end{itemize}
+TCP/IPを用いたrequest-reply protocolにおいて，接続が壊れる場合として起こりうるのは，以下の2つである．
+\begin{itemize}
+	\item network failures
+	\item heavy congestion
+\end{itemize}
+とくに，大量のデータが送られることにより，heavy congestionが起こった場合，送った情報が受信側に届く前に抜け落ちることが繰り返されると状況がより悪化する，
+
+一方でTCP/IPを用いた通信では，受信側からの返信がくるまで，送信側は同じ内容の情報の送信を繰り返す．送った情報のいずれかに応答があれば，正常な受信が1度は行われたことが保証される．受信側での重複に対する処理を行うことまでは規定されていない．
+
+以上のことから，TCP/IPを用いてrequest-reply protocolを実装した場合，at-least-once semanticsに関しては達成されるといえる．
+
+\newpage
+\section{Question2:目標とする性能}
+目標とする性能として，ここでは倍精度浮動小数点数における理論ピーク性能と最大メモリ帯域幅について述べる．
+想定するプロセッサIntel Xeon Platinum 8180M Processorの特徴のうち計算に必要なものを表にまとめてある．
+まず理論ピーク性能は以下のように計算でき，8960.0[GFLOPs]となる．
+なおスレッド数の項はハイパー・スレッディング・テクノロジー(HT)が有効である場合，$\mbox{コア数} \times 2$として計算する．またFMAの項は，$\mbox{1Clockでの積和計算} \times \mbox{FMA基の個数} = 2 \times 2$となる．
+\begin{table}
+	\centering
+	\begin{tabular}{| l | r |} \hline
+		項目 & 仕様 \\ \hline
+		CPU周波数 & 2.5[GHz] \\
+		コア数 & 28 \\
+		HT & あり\\
+		AVX-512 FMA Units & 2 \\
+		最大メモリ速度 & 2666[MHz] \\
+		メモリチャンネル数 & 6 \\ \hline
+	\end{tabular}
+\end{table}
+	\begin{equation}
+	\begin{split}
+		\left(\mbox{Processorのピーク性能}\right) & = \mbox{クロック数} \times \mbox{スレッド数} \times \mbox{AVX-512での倍精度浮動小数点数の個数} \times \mbox{FMA} \\
+																							& = (2.5) \times (28 \times 2) \times (8) \times (2 \times 2)\\
+																							& = 4480.0[GFLOPs]
+	\end{split}
+	\end{equation}
+	\begin{equation}
+	\begin{split}
+		\left(\mbox{サーバのピーク性能}\right) & = \mbox{Processorのピーク性能} \times \mbox{Processor数} \\
+																					 & = (4480.0) \times (2) \\
+																					 & = 8960.0[GFLOPs]
+	\end{split}
+	\end{equation}
+	次に最大メモリ帯域幅は以下のように計算でき，約128[GB/s]となる．
+	バス幅はDDRの規格としてDDR,DDR$[2$\textasciitilde$4]$においては8[Byte]で共通である．
+\begin{equation}
+\begin{split}
+	(最大メモリ帯域幅) & = 転送レート \times バス幅 \times チャンネル数 \\
+										 & = (2666) \times (8) \times (6) \\
+										 & = 127,968[MB/s] \\
+										 & \simeq 128[GB/s]
+\end{split}
+\end{equation}
+\section{Question3:プログラム中の性能改善箇所}
+\end{document}
